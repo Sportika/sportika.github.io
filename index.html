@@ -26,8 +26,57 @@
     <meta name="twitter:description" content="Official mirror sites for Sportika - Watch Live Sports & TV without cable.">
     <meta name="twitter:image" content="https://logos.sportika.live/2BG.png">
     
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGT5CL3CLL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-PGT5CL3CLL');
+
+        // Heartbeat mechanism based on page visibility
+        (function() {
+        const HEARTBEAT_INTERVAL = 15000; // 15 seconds in milliseconds
+        let heartbeatIntervalId = null;
+
+        // Function to send heartbeat event
+        function sendHeartbeat() {
+            gtag('event', 'heartbeat', {
+            'event_category': 'engagement',
+            'event_label': 'page_visible',
+            'non_interaction': true // Prevents affecting bounce rate
+            });
+        }
+
+        // Function to start/stop heartbeat based on visibility
+        function handleVisibilityChange() {
+            if (document.visibilityState === 'visible') {
+            // Start heartbeat if not already running
+            if (!heartbeatIntervalId) {
+                sendHeartbeat(); // Send immediately on visibility
+                heartbeatIntervalId = setInterval(sendHeartbeat, HEARTBEAT_INTERVAL);
+            }
+            } else {
+            // Stop heartbeat when page is not visible
+            if (heartbeatIntervalId) {
+                clearInterval(heartbeatIntervalId);
+                heartbeatIntervalId = null;
+            }
+            }
+        }
+
+        // Add visibility change listener
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        // Initial check
+        handleVisibilityChange();
+        })();
+    </script>
+  <!-- End Google Tag --> 
 </head>
 <body>
     <!-- Background Video/Image -->
@@ -292,3 +341,4 @@
     <script src="js/script.js"></script>
 </body>
 </html>
+
